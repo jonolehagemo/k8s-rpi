@@ -1,0 +1,41 @@
+## setup for master
+sudo kubeadm init --apiserver-advertise-address 10.128.98.4
+
+## you should get something like this after a couple of min
+# kubeadm join 192.168.1.234:6443 --token bfubpj.en6t5abj9doxrvw7 --discovery-token-ca-cert-hash sha256:d84c1f7ee30947f00c4579f272fbd9643d67bbcd9a80b59d107c90884baa34d7
+
+## you can always generate a new one with
+# kubeadm token create --print-join-command
+
+## and for start using the master, you need to enter
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+## Install Weave network driver
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+
+## Check everything worked:
+kubectl get pods --namespace=kube-system
+
+##NAME                           READY STATUS RESTARTS AGE
+​##
+##etcd-of-2                      1/1 Running 0 12m
+##kube-apiserver-of-2            1/1 Running 2 12m
+##kube-controller-manager-of-2   1/1 Running 1 11m
+##kube-dns-66ffd5c588-d8292      3/3 Running 0 11m
+##kube-proxy-xcj5h               1/1 Running 0 11m
+##kube-scheduler-of-2            1/1 Running 0 11m
+##weave-net-zz9rz                2/2 Running 0 5m
+
+## Add workers to master!!
+
+##now we have 3 slaves connected to the master you can run "kubectl get nodes" on the master
+
+## kubectl get nodes
+​
+##NAME      STATUS AGE       VERSION
+##k8s-1     Ready 10m       v1.7.4
+##k8s-2     Ready 10m       v1.7.4
+##k8s-3     Ready 10m       v1.7.4

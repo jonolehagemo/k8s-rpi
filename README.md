@@ -1,0 +1,1 @@
+based on https://www.olindata.com/en/blog/2018/07/how-run-kubernetes-raspberry-pi-cluster

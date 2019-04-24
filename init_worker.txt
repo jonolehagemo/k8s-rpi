@@ -1,0 +1,3 @@
+## we basically only need to run the kubeadm join on each of your worker nodes, get token and discovery-token from master
+
+#kubeadm join 10.128.98.4:6443 --token bfubpj.en6t5abj9doxrvw7 --discovery-token-ca-cert-hash sha256:d84c1f7ee30947f00c4579f272fbd9643d67bbcd9a80b59d107c90884baa34d7
